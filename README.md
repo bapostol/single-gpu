@@ -69,16 +69,26 @@ lspci -nnk
  * Detach the `VirtIO` disk and the `VirtIO drivers` ISO
  * Shutdown the Guest OS
  * Configure the drive to use virtio (more faster, more better):
+   Change from
 ```xml
 <disk type="file" device="disk">
   <driver name="qemu" type="qcow2" discard="unmap"/>
-  <source file="/var/lib/libvirt/images/win11-1.qcow2"/>
-  <target dev="sdc" bus="virtio"/>
-  <boot order="2"/>
-  <address type="pci" controller="0" bus="0" target="0" unit="2"/>
+  <source file="/var/lib/libvirt/images/win11.qcow2"/>
+  <target dev="sda" bus="sata"/>
+  <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+</disk>
+```
+   To
+```xml
+<disk type="file" device="disk">
+  <driver name="qemu" type="qcow2" discard="unmap"/>
+  <source file="/var/lib/libvirt/images/win11.qcow2"/>
+  <target dev="sda" bus="virtio"/>
+  <address type="pci" controller="0" bus="0" target="0" unit="0"/>
 </disk>
 ```
  * Attach the GPU to the VM.
+ * Attach the USB peripherals you need to use.
 
 ## Configure libvirt hooks
 Download `VFIO-Tools`:
