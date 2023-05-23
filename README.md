@@ -89,6 +89,9 @@ lspci -nnk
 ```
  * Attach the GPU to the VM.
  * Attach the USB peripherals you need to use.
+ * Attach any internal HDD to your machine:
+   * Unmount them before attaching
+   * Attach them by passing their `/dev/disk/by-id/` as the source
 
 ## Configure libvirt hooks
 Download `VFIO-Tools`:
